@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane stylesheets="@style/main_window.css"
+			xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 	<top>
 		<MenuBar BorderPane.alignment="CENTER">
 			<menus>
@@ -33,13 +34,13 @@
 	<center>
 		<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 			<children>
-				<SplitPane dividerPositions="0.2, 0.8, 0.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+				<SplitPane dividerPositions="0.2, 0.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 					<items>
 						<AnchorPane prefHeight="200.0" prefWidth="200.0" />
 						<SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
 							<items>
-								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+								<AnchorPane minHeight="0.0" minWidth="0.0"/>
+								<AnchorPane minHeight="0.0" minWidth="30.0">
 									<children>
 										<TextField />
 									</children>
