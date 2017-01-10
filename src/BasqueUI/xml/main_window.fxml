@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane stylesheets="@style/main_window.css"
-			xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane stylesheets="@../style/main_window.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="BasqueUI.Controller">
 	<top>
 		<MenuBar BorderPane.alignment="CENTER">
 			<menus>
 				<Menu mnemonicParsing="false" text="File">
 					<items>
+                  <MenuItem text="_New">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem text="_Open" />
+                  <MenuItem text="_Save">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
 						<MenuItem mnemonicParsing="false" text="Close" />
 					</items>
 				</Menu>
@@ -25,7 +38,7 @@
 				</Menu>
 				<Menu mnemonicParsing="false" text="Help">
 					<items>
-						<MenuItem mnemonicParsing="false" text="About" />
+						<MenuItem mnemonicParsing="false" onAction="#displayAbout" text="About" />
 					</items>
 				</Menu>
 			</menus>
@@ -39,10 +52,12 @@
 						<AnchorPane prefHeight="200.0" prefWidth="200.0" />
 						<SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
 							<items>
-								<AnchorPane minHeight="0.0" minWidth="0.0"/>
+								<ListView fx:id="sentenceListView">
+
+								</ListView>
 								<AnchorPane minHeight="0.0" minWidth="30.0">
 									<children>
-										<TextField />
+										<TextField fx:id="textPane" />
 									</children>
 								</AnchorPane>
 							</items>
