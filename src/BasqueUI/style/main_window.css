@@ -9,3 +9,13 @@
 .split-pane {
     -fx-background-color: #FFFFFF;
 }
+
+.text-field {
+    -fx-background-color: azure;
+}
+
+.text-info {
+    -fx-background-color: beige;
+    -fx-alignment: top-left;
+    -fx-padding: 5px;
+}

@@ -1,5 +1,6 @@
 package BasqueUI;
 
+import BasqueUI.objects.FrequencyWordData;
 import BasqueUI.objects.SentenceData;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,7 @@ public class Main extends Application {
 		mSentenceData = SentenceData.getInstance();
 		try {
 			mSentenceData.loadSentences();
+			FrequencyWordData.getInstance().loadSentences();
 		} catch (IOException e) {
 			System.out.println("No sentence save... ignoring.");
 		}
