@@ -36,7 +36,7 @@ public class Controller {
 		mOriginalValue = sentenceEdit.getText();
 		mSentences = SentenceData.getInstance().getSentences();
 		sentenceListView.setItems(mSentences);
-		sentenceListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		sentenceListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		// create click listener for sentences
 		sentenceListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
