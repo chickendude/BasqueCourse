@@ -2,11 +2,21 @@ package BasqueUI.objects;
 
 public class Sentence {
 	private String mSentence;
+	private String mSentenceAnalysis;
 	private float mDifficulty;
 
-	public Sentence(String sentence, float difficulty) {
+	public Sentence(String sentence, float difficulty, String sentenceAnalysis) {
 		mSentence = sentence;
 		mDifficulty = difficulty;
+		mSentenceAnalysis = sentenceAnalysis;
+	}
+
+	public String getSentenceAnalysis() {
+		return mSentenceAnalysis;
+	}
+
+	public void setSentenceAnalysis(String sentenceAnalysis) {
+		mSentenceAnalysis = sentenceAnalysis;
 	}
 
 	public String getSentence() {
@@ -14,7 +24,7 @@ public class Sentence {
 	}
 
 	public void setSentence(String sentence) {
-		mSentence = sentence;
+		mSentence = sentence.trim();
 	}
 
 	public float getDifficulty() {

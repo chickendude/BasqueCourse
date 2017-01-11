@@ -16,6 +16,7 @@ public class SentenceData {
 	private static String filename = "sentences.csv";
 
 	private ObservableList<Sentence> mSentences;
+	private boolean mModified;
 
 	public static SentenceData getInstance() {
 		return instance;
@@ -39,8 +40,9 @@ public class SentenceData {
 
 				String sentenceText = values[0];
 				float difficulty = Float.parseFloat(values[1]);
+				String sentenceAnalysis = values[2];
 
-				Sentence sentence = new Sentence(sentenceText, difficulty);
+				Sentence sentence = new Sentence(sentenceText, difficulty, sentenceAnalysis);
 				mSentences.add(sentence);
 			}
 			br.close();
@@ -56,14 +58,23 @@ public class SentenceData {
 			Iterator<Sentence> iter = mSentences.iterator();
 			while (iter.hasNext()) {
 				Sentence item = iter.next();
-				bw.write(String.format("%s\t%f\n",
+				bw.write(String.format("%s\t%f\t%s\n",
 						item.getSentence(),
-						item.getDifficulty()));
+						item.getDifficulty(),
+						item.getSentenceAnalysis()));
 			}
 			bw.close();
 
 		} else {
 			System.out.println(String.format("Error saving '%s'", filename));
 		}
+	}
+
+	public boolean isModified() {
+		return mModified;
+	}
+
+	public void setModified(boolean modified) {
+		mModified = modified;
 	}
 }

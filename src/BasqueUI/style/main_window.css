@@ -12,10 +12,35 @@
 
 .text-field {
     -fx-background-color: azure;
+    -fx-background-radius: 0;
+    -fx-border-color: cadetblue;
 }
 
-.text-info {
-    -fx-background-color: beige;
+.analysis-label {
     -fx-alignment: top-left;
     -fx-padding: 5px;
+    -fx-border-color: cadetblue;
+    -fx-fill-width: true;
+    -fx-fill-height: true;
 }
+
+.vbox {
+    -fx-background-color: beige;
+}
+
+.hbox {
+    -fx-fill-width: true;
+}
+
+.hbox .button {
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: cadetblue;
+    -fx-background-radius: 0;
+    -fx-border-color: cadetblue;
+}
+.hbox .button:pressed {
+    -fx-text-fill: #e3e3e3;
+    -fx-background-color: #6aafb1;
+    -fx-border-color: #51888a;
+}
+

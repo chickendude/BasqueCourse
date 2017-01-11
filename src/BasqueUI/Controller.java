@@ -8,13 +8,13 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -24,8 +24,6 @@ public class Controller {
 	private ObservableList<FrequencyWord> mDictionary;
 	private Sentence mCurSentence;
 
-	private boolean mLoadText;
-	private boolean mWasChanged;
 	private String mOriginalValue;
 
 
@@ -38,7 +36,7 @@ public class Controller {
 
 	public void initialize() {
 		mCurSentence = null;
-		mWasChanged = false;
+		SentenceData.getInstance().setModified(false);
 		mOriginalValue = sentenceEdit.getText();
 		mSentences = SentenceData.getInstance().getSentences();
 		mDictionary = FrequencyWordData.getInstance().getDictionary();
@@ -53,10 +51,6 @@ public class Controller {
 		// create click listener for sentences
 		sentenceListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
-				if (oldValue != null && !mOriginalValue.equals(oldValue.getSentence())) {
-					mWasChanged = true;
-				}
-				mLoadText = true;
 				Sentence clickedSentence = sentenceListView.getSelectionModel().getSelectedItem();
 				mCurSentence = clickedSentence;
 				mOriginalValue = mCurSentence.getSentence();
@@ -69,7 +63,7 @@ public class Controller {
 						sentenceEdit.deselect();
 					}
 				});
-				analyzeSentence(mCurSentence);
+				loadAnalysisData();
 			}
 		});
 	}
@@ -79,9 +73,12 @@ public class Controller {
 		sentenceEdit.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				String title = "* " + Main.WINDOW_TITLE;
-				if (newValue.equals(mOriginalValue) && !mWasChanged) {
+				String title;
+				if (newValue.equals(mOriginalValue) && !SentenceData.getInstance().isModified()) {
 					title = Main.WINDOW_TITLE;
+				} else {
+					title = "* " + Main.WINDOW_TITLE;
+					SentenceData.getInstance().setModified(true);
 				}
 				setWindowTitle(title);
 				mCurSentence.setSentence(newValue);
@@ -91,12 +88,24 @@ public class Controller {
 	}
 
 
-	private void analyzeSentence(Sentence sentence) {
-		String[] words = sentence.getSentence().split(" ");
+	private void loadAnalysisData() {
+		String sentenceAnalysis = mCurSentence.getSentenceAnalysis();
+		if (sentenceAnalysis == null) {
+			analysisLabel.setText("");
+			return;
+		}
+		String[] words = sentenceAnalysis.split(" ");
 		String text = "";
 		for (String word : words) {
-			FrequencyWord frequencyWord = FrequencyWordData.getInstance().findWord(word);
-			text += String.format("%s - %.3f (%d)\n", frequencyWord.getLemma(), frequencyWord.getScore(), frequencyWord.getPosition());
+			String[] data = word.split("/");
+			if (data.length == 4) {
+				String lemma, score, position, grammar;
+				lemma = data[0];
+				score = data[1];
+				position = data[2];
+				grammar = data[3];
+				text += String.format("%s - %.3f (%s) - %s\n", lemma, Float.parseFloat(score), position, grammar);
+			}
 		}
 		analysisLabel.setText(text);
 	}
@@ -106,12 +115,14 @@ public class Controller {
 		primaryStage.setTitle(title);
 	}
 
-	public void displayAbout(ActionEvent actionEvent) {
+	@FXML
+	public void displayAbout() {
 		System.out.print("about!");
 		sentenceEdit.setText("About!");
 	}
 
-	public void saveSentences(ActionEvent actionEvent) {
+	@FXML
+	public void saveSentences() {
 		mOriginalValue = sentenceEdit.getText();
 		setWindowTitle(Main.WINDOW_TITLE);
 		try {
@@ -119,5 +130,34 @@ public class Controller {
 		} catch (IOException e) {
 			System.out.println("Error writing to file.");
 		}
+	}
+
+	@FXML
+	public void analyzeText() {
+		SentenceData.getInstance().setModified(true);
+		String[] words = mCurSentence.getSentence().split(" ");
+		String text = "";
+		String sentenceAnalysis = "";
+		for (String word : words) {
+			FrequencyWord frequencyWord = FrequencyWordData.getInstance().findWord(word);
+			text += String.format("%s - %.3f (%d)\n", frequencyWord.getLemma(), frequencyWord.getScore(), frequencyWord.getPosition());
+			sentenceAnalysis += String.format("%s/%s/%s/%s ",
+					frequencyWord.getLemma(),
+					frequencyWord.getScore(),
+					frequencyWord.getPosition(),
+					"noun,determiner,singular");
+		}
+		mCurSentence.setSentenceAnalysis(sentenceAnalysis);
+		analysisLabel.setText(text);
+	}
+
+	@FXML
+	public void exitProgram() {
+		Stage primaryStage = (Stage) sentenceEdit.getScene().getWindow();
+		primaryStage.fireEvent(
+				new WindowEvent(
+						primaryStage,
+						WindowEvent.WINDOW_CLOSE_REQUEST
+				));
 	}
 }
