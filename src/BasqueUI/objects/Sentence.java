@@ -27,6 +27,6 @@ public class Sentence {
 
 	@Override
 	public String toString() {
-		return String.format("%s (%.2f)",mSentence,mDifficulty);
+		return String.format("%s (%.2f)", mSentence, mDifficulty);
 	}
 }

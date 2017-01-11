@@ -57,7 +57,7 @@ fx:controller="BasqueUI.Controller">
 								</ListView>
 								<AnchorPane minHeight="0.0" minWidth="30.0">
 									<children>
-										<TextField fx:id="textPane" />
+										<TextField fx:id="sentenceEdit" />
 									</children>
 								</AnchorPane>
 							</items>
