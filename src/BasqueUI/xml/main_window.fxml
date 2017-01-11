@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane stylesheets="@../style/main_window.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
-fx:controller="BasqueUI.Controller">
+<BorderPane stylesheets="@../style/main_window.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BasqueUI.Controller">
 	<top>
 		<MenuBar BorderPane.alignment="CENTER">
 			<menus>
@@ -23,7 +22,7 @@ fx:controller="BasqueUI.Controller">
                      </accelerator>
                   </MenuItem>
                   <MenuItem text="_Open" />
-                  <MenuItem text="_Save">
+                  <MenuItem onAction="#saveSentences" text="_Save">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -49,8 +48,8 @@ fx:controller="BasqueUI.Controller">
 			<children>
 				<SplitPane dividerPositions="0.2, 0.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 					<items>
-						<AnchorPane prefHeight="200.0" prefWidth="200.0" />
-						<SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+						<AnchorPane prefHeight="200.0" prefWidth="200.0" SplitPane.resizableWithParent="false" />
+						<SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="960.0">
 							<items>
 								<ListView fx:id="sentenceListView">
 
@@ -62,7 +61,7 @@ fx:controller="BasqueUI.Controller">
 								</AnchorPane>
 							</items>
 						</SplitPane>
-						<AnchorPane prefHeight="200.0" prefWidth="200.0" />
+						<AnchorPane prefHeight="200.0" prefWidth="200.0" SplitPane.resizableWithParent="false" />
 					</items>
 				</SplitPane>
 			</children>

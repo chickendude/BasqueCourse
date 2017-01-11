@@ -10,13 +10,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+	public static final String WINDOW_TITLE ="Basque Course Creator";
 
 	private SentenceData mSentenceData;
 
-    @Override
+	@Override
     public void start(Stage primaryStage) throws Exception{
 		Parent root = FXMLLoader.load(getClass().getResource("xml/main_window.fxml"));
-        primaryStage.setTitle("Basque Course Creator");
+		primaryStage.setTitle(WINDOW_TITLE);
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }

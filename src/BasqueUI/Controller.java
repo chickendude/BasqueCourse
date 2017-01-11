@@ -11,42 +11,43 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class Controller {
 
 	private ObservableList<Sentence> mSentences;
 	private Sentence curSentence;
 
+	private boolean mLoadText;
+	private boolean mWasChanged;
+	private String mOriginalValue;
+
+
 	@FXML
 	private TextField sentenceEdit;
 	@FXML
 	private ListView<Sentence> sentenceListView;
 
-
 	public void initialize() {
 		curSentence = null;
+		mWasChanged = false;
+		mOriginalValue = sentenceEdit.getText();
 		mSentences = SentenceData.getInstance().getSentences();
-		mSentences.add(new Sentence("Zer moduz!", 3));
-		mSentences.add(new Sentence("Kaixo!", 3));
-		mSentences.add(new Sentence("Epa!", 3));
-		mSentences.add(new Sentence("Maite zaitut, euskara!", 1));
-		mSentences.add(new Sentence("Zer moduz!", 3));
-		mSentences.add(new Sentence("Zer moduz!", 3));
-		mSentences.add(new Sentence("Zer moduz!", 3));
-		mSentences.add(new Sentence("Zer moduz!", 3));
-		mSentences.add(new Sentence("Zer moduz!", 3));
-		mSentences.add(new Sentence("Zer moduz!", 3));
-		mSentences.add(new Sentence("Zer moduz!", 3));
-		mSentences.add(new Sentence("Zer moduz!", 3));
-		mSentences.add(new Sentence("Zer moduz!", 3));
 		sentenceListView.setItems(mSentences);
 		sentenceListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-		// create listener
+		// create click listener for sentences
 		sentenceListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
+				if (oldValue != null && !mOriginalValue.equals(oldValue.getSentence())) {
+					mWasChanged = true;
+				}
+				mLoadText = true;
 				Sentence clickedSentence = sentenceListView.getSelectionModel().getSelectedItem();
 				curSentence = clickedSentence;
-				sentenceEdit.setText(clickedSentence.getSentence());
+				mOriginalValue = curSentence.getSentence();
+				sentenceEdit.setText(mOriginalValue);
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
@@ -57,19 +58,38 @@ public class Controller {
 				});
 			}
 		});
-
+		// listener for text changes in text edit box
 		sentenceEdit.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				String title = "* " + Main.WINDOW_TITLE;
+				if (newValue.equals(mOriginalValue) && !mWasChanged) {
+					title = Main.WINDOW_TITLE;
+				}
+				setWindowTitle(title);
 				curSentence.setSentence(newValue);
 				sentenceListView.getItems().set(sentenceListView.getSelectionModel().getSelectedIndex(), curSentence);
 			}
 		});
+	}
 
+	private void setWindowTitle(String title) {
+		Stage primaryStage = (Stage) sentenceEdit.getScene().getWindow();
+		primaryStage.setTitle(title);
 	}
 
 	public void displayAbout(ActionEvent actionEvent) {
 		System.out.print("about!");
 		sentenceEdit.setText("About!");
+	}
+
+	public void saveSentences(ActionEvent actionEvent) {
+		mOriginalValue = sentenceEdit.getText();
+		setWindowTitle(Main.WINDOW_TITLE);
+		try {
+			SentenceData.getInstance().saveSentences();
+		} catch (IOException e) {
+			System.out.println("Error writing to file.");
+		}
 	}
 }
