@@ -6,6 +6,7 @@
     -fx-background-color: azure;
     -fx-background-radius: 0;
     -fx-border-color: cadetblue;
+    -fx-padding: 1;
 }
 
 .anchorpane {
