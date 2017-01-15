@@ -38,9 +38,30 @@
     -fx-background-radius: 0;
     -fx-border-color: cadetblue;
 }
+
 .hbox .button:pressed {
     -fx-text-fill: #e3e3e3;
     -fx-background-color: #6aafb1;
     -fx-border-color: #51888a;
 }
 
+.tooltip {
+    -fx-border-color: cadetblue;
+    -fx-background-color: whitesmoke;
+    -fx-text-fill: #1d1d1d;
+}
+
+.tool-bar .button {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-padding: 3;
+}
+
+.tool-bar .button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+.tool-bar .button:pressed {
+    -fx-border-color: #1d1d1d;
+    -fx-border-radius: 3px;
+    -fx-padding: 2;
+}

@@ -9,10 +9,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -27,12 +27,11 @@ public class Controller {
 	private String mOriginalValue;
 
 
-	@FXML
-	private TextField sentenceEdit;
-	@FXML
-	private ListView<Sentence> sentenceListView;
-	@FXML
-	private Label analysisLabel;
+	@FXML private TextField sentenceEdit;
+	@FXML private ListView<Sentence> sentenceListView;
+	@FXML private Label analysisLabel;
+	@FXML private SplitPane splitPaneLeft;
+	@FXML private AnchorPane paneRight;
 
 	public void initialize() {
 		mCurSentence = null;
@@ -159,5 +158,20 @@ public class Controller {
 						primaryStage,
 						WindowEvent.WINDOW_CLOSE_REQUEST
 				));
+	}
+
+	@FXML
+	public void addSentence() throws Exception {
+		splitPaneLeft.setDividerPositions(0,0.5);
+		Pane addSentencesPane =  FXMLLoader.load(getClass().getResource("xml/add_sentence_window.fxml"));
+		addSentencesPane.prefWidthProperty().bind(paneRight.widthProperty());
+		addSentencesPane.prefHeightProperty().bind(paneRight.heightProperty());
+		paneRight.getChildren().add(addSentencesPane);
+
+//		Parent root = FXMLLoader.load(getClass().getResource("xml/add_sentence_window.fxml"	));
+//		Stage sentenceStage = new Stage();
+//		sentenceStage.setTitle("Add Sentence");
+//		sentenceStage.setScene(new Scene(root, 1200, 800));
+//		sentenceStage.show();
 	}
 }
