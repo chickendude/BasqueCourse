@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.geometry.Insets?>
-<AnchorPane stylesheets="@../style/main_window.css"
-			xmlns="http://javafx.com/javafx/8.0.111"
-			xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane styleClass="anchorpane" stylesheets="@../style/add_sentence.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BasqueUI.AddSentenceController">
 	<children>
-		<VBox AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+		<VBox spacing="5" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 			<padding>
-				<Insets left="5" right="5"/>
+				<Insets bottom="5" left="5" right="5" top="5" />
 			</padding>
 			<children>
-				<Label text="Sentence:"/>
-				<TextField />
+				<Label text="Sentence:" />
+            <HBox>
+               <children>
+      				<TextField
+							promptText="insert"
+							fx:id="positionTextField"/>
+                  <TextField fx:id="sentenceTextField"/>
+               </children>
+            </HBox>
+				<HBox spacing="5">
+					<children>
+						<Button onAction="#addSentence" text="Add" />
+						<Button text="Done" />
+					</children>
+				</HBox>
 			</children>
 		</VBox>
 	</children>

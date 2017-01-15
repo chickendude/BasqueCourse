@@ -1,0 +1,30 @@
+.background {
+    -fx-background-color: #1d1d1d;
+}
+
+.text-field {
+    -fx-background-color: azure;
+    -fx-background-radius: 0;
+    -fx-border-color: cadetblue;
+}
+
+.anchorpane {
+    -fx-background-color: #e3e3e3;
+}
+
+.hbox {
+    -fx-fill-width: true;
+}
+
+.button {
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: cadetblue;
+    -fx-background-radius: 0;
+    -fx-border-color: cadetblue;
+}
+
+.button:pressed {
+    -fx-text-fill: #e3e3e3;
+    -fx-background-color: #6aafb1;
+    -fx-border-color: #51888a;
+}

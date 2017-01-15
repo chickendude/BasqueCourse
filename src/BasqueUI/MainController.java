@@ -10,15 +10,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
-public class Controller {
+public class MainController {
 
 	private ObservableList<Sentence> mSentences;
 	private ObservableList<FrequencyWord> mDictionary;
@@ -26,12 +27,19 @@ public class Controller {
 
 	private String mOriginalValue;
 
+	private Stage mAddSentenceStage;
 
-	@FXML private TextField sentenceEdit;
-	@FXML private ListView<Sentence> sentenceListView;
-	@FXML private Label analysisLabel;
-	@FXML private SplitPane splitPaneLeft;
-	@FXML private AnchorPane paneRight;
+
+	@FXML
+	private TextField sentenceEdit;
+	@FXML
+	private ListView<Sentence> sentenceListView;
+	@FXML
+	private Label analysisLabel;
+	@FXML
+	private SplitPane splitPaneLeft;
+	@FXML
+	private AnchorPane paneRight;
 
 	public void initialize() {
 		mCurSentence = null;
@@ -161,17 +169,25 @@ public class Controller {
 	}
 
 	@FXML
-	public void addSentence() throws Exception {
-		splitPaneLeft.setDividerPositions(0,0.5);
-		Pane addSentencesPane =  FXMLLoader.load(getClass().getResource("xml/add_sentence_window.fxml"));
-		addSentencesPane.prefWidthProperty().bind(paneRight.widthProperty());
-		addSentencesPane.prefHeightProperty().bind(paneRight.heightProperty());
-		paneRight.getChildren().add(addSentencesPane);
+	public void openAddSentenceWindow() throws Exception {
+		// make sure we don't open multiple windows
+		if (mAddSentenceStage != null) {
+			mAddSentenceStage.close();
+		}
 
-//		Parent root = FXMLLoader.load(getClass().getResource("xml/add_sentence_window.fxml"	));
-//		Stage sentenceStage = new Stage();
-//		sentenceStage.setTitle("Add Sentence");
-//		sentenceStage.setScene(new Scene(root, 1200, 800));
-//		sentenceStage.show();
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("xml/add_sentence_window.fxml"));
+		Parent root = fxmlLoader.load();
+		// connect the two controllers
+		AddSentenceController controller = fxmlLoader.getController();
+		controller.setParentController(this);
+		mAddSentenceStage = new Stage();
+		mAddSentenceStage.setIconified(false);
+		mAddSentenceStage.setTitle("Add Sentence");
+		mAddSentenceStage.setScene(new Scene(root, 600, 400));
+		mAddSentenceStage.show();
+	}
+
+	public void addSentence() {
+		analysisLabel.setText("add");
 	}
 }

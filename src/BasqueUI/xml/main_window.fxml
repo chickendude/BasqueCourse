@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane stylesheets="@../style/main_window.css" xmlns="http://javafx.com/javafx/8.0.111"
-			xmlns:fx="http://javafx.com/fxml/1" fx:controller="BasqueUI.Controller">
+			xmlns:fx="http://javafx.com/fxml/1" fx:controller="BasqueUI.MainController">
 	<top>
 		<VBox BorderPane.alignment="CENTER">
 			<MenuBar>
@@ -61,7 +61,7 @@
 			</MenuBar>
 			<ToolBar>
 				<HBox>
-					<Button onAction="#addSentence" text="Add">
+					<Button onAction="#openAddSentenceWindow" text="Add">
 						<tooltip>
 							<Tooltip text="Add sentences"/>
 						</tooltip>
