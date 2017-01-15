@@ -193,9 +193,12 @@ public class MainController {
 	}
 
 	public void addSentence(int position, Sentence sentence) {
-		analysisLabel.setText("add");
 		// add sentence to sentence listview
-		sentenceListView.getItems().add(position, sentence);
+		if (position >= 0) {
+			sentenceListView.getItems().add(position, sentence);
+		} else {
+			sentenceListView.getItems().add(sentence);
+		}
 		// mark window as modified
 		SentenceData.getInstance().setModified(true);
 		setWindowTitle("* " + Main.WINDOW_TITLE);

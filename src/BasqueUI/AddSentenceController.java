@@ -2,6 +2,8 @@ package BasqueUI;
 
 import BasqueUI.objects.Sentence;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -19,16 +21,38 @@ public class AddSentenceController {
 	TextField positionTextField;
 
 	public void initialize() {
+		// limit positionTextField to 4 characters
+		positionTextField.lengthProperty().addListener(positionCharacterLimitListener);
 		Platform.runLater(() -> sentenceTextField.requestFocus());
 	}
 
 	public void addSentence() {
 		String sentenceText = sentenceTextField.getText();
 		sentenceTextField.setText("");
-		int position = Integer.parseInt(positionTextField.getText());
+		String positionText = positionTextField.getText();
+		int position = getPosition();
+		if (position >= 0) {
+			positionTextField.setText(Integer.toString(position + 1));
+		}
 		Sentence sentence = new Sentence(sentenceText, 0.0f, "");
 		mMainController.addSentence(position, sentence);
+		sentenceTextField.requestFocus();
 	}
+
+	public int getPosition() {
+		int position;
+		try {
+			position = Integer.parseInt(positionTextField.getText());
+			if (position < 0) {
+				position = -1;
+			}
+		} catch (NumberFormatException e) {
+			// not a valid integer
+			position = -1;
+		}
+		return position;
+	}
+
 
 	public void setParentController(MainController mainController) {
 		mMainController = mainController;
@@ -39,7 +63,7 @@ public class AddSentenceController {
 	}
 
 	public void checkKeyPressed(KeyEvent keyEvent) {
-		switch(keyEvent.getCode()) {
+		switch (keyEvent.getCode()) {
 			case ENTER:
 				addSentence();
 				break;
@@ -48,4 +72,16 @@ public class AddSentenceController {
 				break;
 		}
 	}
+
+	private ChangeListener positionCharacterLimitListener = new ChangeListener<Number>() {
+		@Override
+		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+			if (newValue.intValue() > oldValue.intValue()) {
+				// Check if the new character is greater than LIMIT
+				if (positionTextField.getText().length() >= 4) {
+					positionTextField.setText(positionTextField.getText().substring(0, 4));
+				}
+			}
+		}
+	};
 }

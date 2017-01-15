@@ -20,10 +20,11 @@
 				<HBox>
 					<children>
 						<TextField
-								promptText="insert"
+								promptText="last"
 								fx:id="positionTextField"
-								prefWidth="20"
-								onKeyPressed="#checkKeyPressed"/>
+								prefWidth="35"
+								onKeyPressed="#checkKeyPressed"
+								alignment="CENTER"/>
 						<TextField
 								fx:id="sentenceTextField" HBox.hgrow="ALWAYS"
 								onKeyPressed="#checkKeyPressed"/>
