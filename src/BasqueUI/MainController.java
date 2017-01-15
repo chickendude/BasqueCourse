@@ -181,7 +181,9 @@ public class MainController {
 		mAddSentenceStage = new Stage();
 		mAddSentenceStage.setIconified(false);
 		mAddSentenceStage.setTitle("Add Sentence");
-		mAddSentenceStage.setScene(new Scene(root, 600, 400));
+		mAddSentenceStage.setScene(new Scene(root, 600, 200));
+		mAddSentenceStage.setMinWidth(300);
+		mAddSentenceStage.setMinHeight(150);
 		mAddSentenceStage.show();
 	}
 
@@ -199,6 +201,7 @@ public class MainController {
 		} else {
 			sentenceListView.getItems().add(sentence);
 		}
+		sentenceListView.scrollTo(sentence);
 		// mark window as modified
 		SentenceData.getInstance().setModified(true);
 		setWindowTitle("* " + Main.WINDOW_TITLE);

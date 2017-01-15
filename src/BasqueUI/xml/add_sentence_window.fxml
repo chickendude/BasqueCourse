@@ -19,15 +19,9 @@
 				<Label text="Sentence:"/>
 				<HBox>
 					<children>
-						<TextField
-								promptText="last"
-								fx:id="positionTextField"
-								prefWidth="35"
-								onKeyPressed="#checkKeyPressed"
-								alignment="CENTER"/>
-						<TextField
-								fx:id="sentenceTextField" HBox.hgrow="ALWAYS"
-								onKeyPressed="#checkKeyPressed"/>
+						<TextField fx:id="positionTextField" alignment="CENTER" onKeyPressed="#checkKeyPressed"
+								   prefWidth="35" promptText="last"/>
+						<TextField fx:id="sentenceTextField" onKeyPressed="#checkKeyPressed" HBox.hgrow="ALWAYS"/>
 					</children>
 				</HBox>
 				<HBox spacing="5">
@@ -36,6 +30,8 @@
 						<Button onAction="#closeWindow" text="Done"/>
 					</children>
 				</HBox>
+				<Label wrapText="true"
+					   text="Note: Leaving the index box empty will add the sentence to the end of the list"/>
 			</children>
 		</VBox>
 	</children>

@@ -25,6 +25,8 @@ public class Main extends Application {
 		Parent root = fxmlLoader.load();
 		mMainController = fxmlLoader.getController();
 		primaryStage.setTitle(WINDOW_TITLE);
+		primaryStage.setMinWidth(600);
+		primaryStage.setMinHeight(400);
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent event) {
