@@ -170,10 +170,8 @@ public class MainController {
 
 	@FXML
 	public void openAddSentenceWindow() throws Exception {
-		// make sure we don't open multiple windows
-		if (mAddSentenceStage != null) {
-			mAddSentenceStage.close();
-		}
+		closeAddSentenceWindow();
+
 
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("xml/add_sentence_window.fxml"));
 		Parent root = fxmlLoader.load();
@@ -187,7 +185,19 @@ public class MainController {
 		mAddSentenceStage.show();
 	}
 
-	public void addSentence() {
+	public void closeAddSentenceWindow() {
+		// make sure we don't open multiple windows
+		if (mAddSentenceStage != null) {
+			mAddSentenceStage.close();
+		}
+	}
+
+	public void addSentence(int position, Sentence sentence) {
 		analysisLabel.setText("add");
+		// add sentence to sentence listview
+		sentenceListView.getItems().add(position, sentence);
+		// mark window as modified
+		SentenceData.getInstance().setModified(true);
+		setWindowTitle("* " + Main.WINDOW_TITLE);
 	}
 }

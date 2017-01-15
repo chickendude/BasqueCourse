@@ -15,16 +15,20 @@ import java.io.IOException;
 
 public class Main extends Application {
 	public static final String WINDOW_TITLE ="Basque Course Creator";
+	MainController mMainController;
 
 	private SentenceData mSentenceData;
 
 	@Override
     public void start(Stage primaryStage) throws Exception{
-		Parent root = FXMLLoader.load(getClass().getResource("xml/main_window.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("xml/main_window.fxml"));
+		Parent root = fxmlLoader.load();
+		mMainController = fxmlLoader.getController();
 		primaryStage.setTitle(WINDOW_TITLE);
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent event) {
+				mMainController.closeAddSentenceWindow();
 				if (SentenceData.getInstance().isModified()) {
 					if (!Alerts.UnsavedChanges()) {
 						event.consume();
