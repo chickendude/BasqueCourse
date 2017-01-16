@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainController {
 
@@ -205,5 +207,16 @@ public class MainController {
 		// mark window as modified
 		SentenceData.getInstance().setModified(true);
 		setWindowTitle("* " + Main.WINDOW_TITLE);
+	}
+
+	public void deleteSentences() {
+		System.out.println("delete");
+		mCurSentence = sentenceListView.getItems().get(0);
+		List<Sentence> sentences = new ArrayList<>(sentenceListView.getSelectionModel().getSelectedItems());
+		sentenceListView.getSelectionModel().clearSelection();
+		sentenceListView.getItems().removeAll(sentences);
+//		mSentences.removeAll(sentences);
+//		sentenceListView.getItems().setAll(mSentences);
+//		sentenceListView.getSelectionModel().clearSelection();
 	}
 }
