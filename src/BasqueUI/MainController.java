@@ -57,6 +57,18 @@ public class MainController {
 	private void setupSentenceListView() {
 		sentenceListView.setItems(mSentences);
 		sentenceListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		sentenceListView.setCellFactory(param -> new ListCell<Sentence>() {
+			@Override
+			protected void updateItem(Sentence item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null || item.getSentence() == null) {
+					setText(null);
+				} else {
+					String text = mSentences.indexOf(item) + 1 + " " + item.getSentence();
+					setText(text);
+				}
+			}
+		});
 		// create click listener for sentences
 		sentenceListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
@@ -215,8 +227,5 @@ public class MainController {
 		List<Sentence> sentences = new ArrayList<>(sentenceListView.getSelectionModel().getSelectedItems());
 		sentenceListView.getSelectionModel().clearSelection();
 		sentenceListView.getItems().removeAll(sentences);
-//		mSentences.removeAll(sentences);
-//		sentenceListView.getItems().setAll(mSentences);
-//		sentenceListView.getSelectionModel().clearSelection();
 	}
 }
