@@ -23,13 +23,13 @@ public class Alerts {
 		alert.getButtonTypes().setAll(saveButton, dontSaveButton, cancelButton);
 
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == saveButton) {
+		if (result.isPresent() && result.get() == saveButton) {
 			try {
 				SentenceData.getInstance().saveSentences();
 			} catch (IOException e) {
 				System.out.println("Error writing to file.");
 			}
-		} else if (result.get() == cancelButton) {
+		} else if ( result.isPresent() && result.get() == cancelButton) {
 			return false;
 		}
 		return true;

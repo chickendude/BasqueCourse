@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Iterator;
 
 public class SentenceData {
 	private static SentenceData instance = new SentenceData();
@@ -55,9 +54,7 @@ public class SentenceData {
 		Path path = Paths.get(filename);
 		BufferedWriter bw = Files.newBufferedWriter(path);
 		if (bw != null) {
-			Iterator<Sentence> iter = mSentences.iterator();
-			while (iter.hasNext()) {
-				Sentence item = iter.next();
+			for (Sentence item : mSentences) {
 				bw.write(String.format("%s\t%f\t%s\n",
 						item.getSentence(),
 						item.getDifficulty(),

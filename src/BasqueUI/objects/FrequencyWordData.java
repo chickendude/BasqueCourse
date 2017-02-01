@@ -14,7 +14,6 @@ import java.nio.file.Paths;
  */
 public class FrequencyWordData {
 	private static FrequencyWordData instance = new FrequencyWordData();
-	private static String filename = "corpus_goenkale.csv";
 	private static int total_lemmas = 13302602;
 
 	private ObservableList<FrequencyWord> mDictionary;
@@ -45,6 +44,7 @@ public class FrequencyWordData {
 	public void loadSentences() throws IOException {
 		mDictionary = FXCollections.observableArrayList();
 
+		String filename = "corpus_goenkale.csv";
 		Path path = Paths.get(filename);
 		BufferedReader br = Files.newBufferedReader(path);
 
