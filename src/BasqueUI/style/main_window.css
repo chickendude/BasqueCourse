@@ -19,7 +19,6 @@
 .analysis-label {
     -fx-alignment: top-left;
     -fx-padding: 5px;
-    -fx-border-color: cadetblue;
     -fx-fill-width: true;
     -fx-fill-height: true;
 }
@@ -64,4 +63,12 @@
     -fx-border-color: #1d1d1d;
     -fx-border-radius: 3px;
     -fx-padding: 2;
+}
+
+.detailhbox .text-field {
+    -fx-padding: 0;
+    -fx-margin: 0;
+    -fx-background-color: #00000000;
+    -fx-background-radius: 0;
+    -fx-border-color: #00000000;
 }

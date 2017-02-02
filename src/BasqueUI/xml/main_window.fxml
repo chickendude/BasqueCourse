@@ -57,8 +57,8 @@
 							</MenuItem>
 							<MenuItem mnemonicParsing="true" onAction="#deleteSentences" text="_Delete">
 								<accelerator>
-									<KeyCodeCombination  alt="UP" code="DELETE" control="UP" meta="UP" shift="UP"
-														 shortcut="UP"/>
+									<KeyCodeCombination alt="UP" code="DELETE" control="UP" meta="UP" shift="UP"
+														shortcut="UP"/>
 								</accelerator>
 							</MenuItem>
 						</items>
@@ -112,6 +112,8 @@
 									<TextField fx:id="sentenceEdit" HBox.hgrow="ALWAYS"/>
 									<Button mnemonicParsing="false" onAction="#analyzeText"
 											text="Analyze"/>
+								</HBox>
+								<HBox styleClass="detailhbox" fx:id="sentenceDetailHBox">
 								</HBox>
 								<Label fx:id="analysisLabel" maxHeight="Infinity" maxWidth="Infinity"
 									   styleClass="analysis-label" VBox.vgrow="ALWAYS"/>
